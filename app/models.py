@@ -9,8 +9,12 @@ class Class(db.Model):
         return '<Class id: {} - coursenum: {}>'.format(self.id,self.coursenum)
     def getTitle(self):
         return self.title
+
+
+
 class.Major(db.Model): 
     name = db.Column(db.String(20), primary_keys=True)
     department = db.Column(db.String(150))
+    classes = db.relationship('Class', backref='coursemajor', lazy='dynamic')
     def __repr__(self):
         return '<Major name: {} - department: {}>'.format(self.name,self.department)
