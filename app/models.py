@@ -8,6 +8,8 @@ class Class(db.Model):
     def __repr__(self):
         return '<Class id: {} - coursenum: {}>'.format(self.id,self.coursenum)
 
-class.major(db.Model): 
+class.Major(db.Model): 
     name = db.Column(db.String(20), primary_keys=True)
     department = db.Column(db.String(150))
+    def __repr__(self):
+        return '<Major name: {} - department: {}>'.format(self.name,self.department)
