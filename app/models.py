@@ -7,3 +7,7 @@ class Class(db.Model):
 
     def __repr__(self):
         return '<Class id: {} - coursenum: {}>'.format(self.id,self.coursenum)
+
+class.major(db.Model): 
+    name = db.Column(db.String(20), primary_keys=True)
+    department = db.Column(db.String(150))
