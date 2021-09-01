@@ -13,7 +13,7 @@ class Class(db.Model):
 
 
 class Major(db.Model): 
-    name = db.Column(db.String(20), primary_keys=True)
+    name = db.Column(db.String(20), primary_key=True)
     department = db.Column(db.String(150))
     classes = db.relationship('Class', backref='coursemajor', lazy='dynamic')
     def __repr__(self):
