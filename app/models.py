@@ -12,7 +12,7 @@ class Class(db.Model):
 
 
 
-class.Major(db.Model): 
+class Major(db.Model): 
     name = db.Column(db.String(20), primary_keys=True)
     department = db.Column(db.String(150))
     classes = db.relationship('Class', backref='coursemajor', lazy='dynamic')
