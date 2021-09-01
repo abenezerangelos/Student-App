@@ -8,9 +8,9 @@ db.create_all()
 from app.models import Class
 
 #create class objects and write them to the database
-newClass = Class(coursenum='322')
+newClass = Class(coursenum='322',major='CptS', title='Software Engineering')
 db.session.add(newClass)
-newClass = Class(coursenum='355')
+newClass = Class(coursenum='355',major='CE', title='Fluid Mechanics')
 db.session.add(newClass)
 db.session.commit()
 
