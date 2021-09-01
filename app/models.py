@@ -6,7 +6,7 @@ class Class(db.Model):
     title = db.Column(db.String(3))
     major = db.Column(db.String(20),db.ForeignKey('major.name'))
     def __repr__(self):
-        return '<Class id: {} - coursenum: {}>'.format(self.id,self.coursenum)
+        return '<Class id: {} - coursenum: {}, title: {}, major{}>'.format(self.id,self.coursenum,self.title, self.major)
     def getTitle(self):
         return self.title
 
