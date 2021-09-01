@@ -20,7 +20,9 @@ db.session.add(newClass)
 newClass = Class(coursenum='355',major='CE', title='Fluid Mechanics')
 db.session.add(newClass)
 db.session.commit()
-
+for m in Major.query.all():
+    print(m)
+    
 # query and print classes
 Class.query.all()
 Class.query.filter_by(coursenum='322').all()
