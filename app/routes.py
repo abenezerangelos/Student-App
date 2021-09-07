@@ -81,4 +81,4 @@ def logout():
 
 @app.route('/display_profile', methods=['GET'])
 def display_profile():
-    return render_template('dislpay_profile.html', title='Display Profile', student = current_user)
+    return render_template('display_profile.html', title='Display Profile', student = current_user)
