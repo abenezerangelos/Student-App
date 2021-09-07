@@ -2,7 +2,7 @@ from enum import unique
 from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login UserMixin
+from flask_login import UserMixin
 from app import login
 
 @login.user_loader
@@ -19,7 +19,7 @@ class Class(db.Model):
     def getTitle(self):
         return self.title
 
-        
+
 
 class Major(db.Model): 
     name = db.Column(db.String(20), primary_key=True)

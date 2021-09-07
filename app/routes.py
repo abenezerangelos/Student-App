@@ -52,29 +52,33 @@ def register():
     return render_template('register.html', form = form)
 
 @app.before_request
-def before_request()
+def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.add(current_user)
         db.session.commit()
 
 
-@app.route('/login', methods=['GET', 'POST]'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    lform = LoginForm()
+    lform =  LoginForm()
     if lform.validate_on_submit():
-        student = Student.query.filter_by(username = form.username.data).first()
-        if (student is None) or (student.check_password(lform.pasword.data) == False):
+        student = Student.query.filter_by(username = lform.username.data).first()
+        if (student is None) or (student.check_password(lform.password.data) == False):
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(student, remember = lform.remember_me.data)
         return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', title='Sign In', form=lform)
 
 @app.route('/logout', methods=['GET'])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+@app.route('/display_profile', methods=['GET'])
+def display_profile():
+    return render_template('dislpay_profile.html', title='Display Profile', student = current_user)
