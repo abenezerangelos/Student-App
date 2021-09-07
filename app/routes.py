@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app,db
 
-from app.forms import ClassForm, RegistrationForm, LoginForm
+from app.forms import ClassForm, RegistrationForm, LoginForm, EditForm
 from app.models import Class, Major, Student
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
@@ -80,5 +80,33 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/display_profile', methods=['GET'])
+@login_required
 def display_profile():
     return render_template('display_profile.html', title='Display Profile', student = current_user)
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    eform = EditForm()
+    if request.method == 'POST':
+        #handle the form submission
+        if eform.validate_on_submit():
+            current_user.firstname = eform.firstname.data
+            current_user.lastname = eform.lastname.data
+            current_user.address = eform.address.data
+            current_user.email = eform.email.data
+            current_user.set_password(eform.password.data)
+            db.session.add(current_user)
+            db.session.commit()
+            flash("Your changes have been saved")
+            return redirect(url_for('display_profile'))
+    elif request.method == 'GET':
+        #populate the user data from DB
+        eform.firstname.data = current_user.firstname
+        eform.lastname.data = current_user.lastname
+        eform.address.data = current_user.address
+        eform.email.data = current_user.email
+    else:
+        pass
+    return render_template('edit_profile.html', title='Edit Profile', form = eform)
