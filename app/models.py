@@ -11,7 +11,7 @@ def load_user(id):
 
 enrolled = db.Table('enrolled',
     db.Column('studentid', db.Integer, db.ForeignKey('student.id')),
-    db.Comumn('classid', db.Integer, db.ForeignKey('class.id'))
+    db.Column('classid', db.Integer, db.ForeignKey('class.id'))
 
 )
 
@@ -22,7 +22,7 @@ class Class(db.Model):
     major = db.Column(db.String(20),db.ForeignKey('major.name'))
     roster = db.relationship(
         'Student', secondary=enrolled,
-        primaryjoin=(enrolled.c.classid == id, lazy='dynamic', overlaps="classes")
+        primaryjoin=(enrolled.c.classid == id), lazy='dynamic', overlaps="classes")
 
     def __repr__(self):
         return '<Class id: {} - coursenum: {}, title: {}, major{}>'.format(self.id,self.coursenum,self.title, self.major)
@@ -48,9 +48,9 @@ class Student(UserMixin, db.Model):
     address = db.Column(db.String(200))
     email = db.Column(db.String(120), unique=True, index =True)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
-       classes = db.relationship(
+    classes = db.relationship(
         'Class', secondary=enrolled,
-        primaryjoin=(enrolled.c.studentid == id, lazy='dynamic', overlaps="roster")
+        primaryjoin=(enrolled.c.studentid == id), lazy='dynamic', overlaps="roster")
 
     def __repr__(self):
         return '<Student {} - {} {} - {};>'.format(self.id,self.firstname, self.lastname, self.email)
