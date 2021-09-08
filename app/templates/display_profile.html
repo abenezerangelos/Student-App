@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %} 
+{% block app_content %} 
     <h1> Display Student Profile </h1>
     <h2> Student username: {{student.username}}</h2>
     <p> <b>Name:</b>  {{student.firstname}} {{student.lastname}}</p>
@@ -13,7 +13,7 @@
 
         {% for enrollment in student.enrolledCourses() %}
             {% set class = enrollment.classenrolled %}
-            {%include '_class.html'%}
+            {% include '_class.html' %}
         {% endfor%}
     {% endif %}
     
