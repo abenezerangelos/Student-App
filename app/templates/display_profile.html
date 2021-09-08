@@ -6,7 +6,15 @@
     <p> <b>Name:</b>  {{student.firstname}} {{student.lastname}}</p>
     <p> <b>Email:</b>  {{student.email}}</p>
     <p> <b>Address:</b>  {%if student.address%} {{student.address}} {%else %} No address {% endif %}</p>
-    <p> <b>Last seen on:</b> {{student.last_seen}}</p>
+    <p> <b>Last seen on:</b> {{moment(student.last_seen).format('LLL') }}</p>
+
+    {% if student.enrolledCourses() %}
+        <p><b>Enrolled Classes:</b></p>
+
+        {% for class in student.enrolledCourses() %}
+            {%include '_class.html'%}
+        {% endfor%}
+    {% endif %}
     
     {% if student == current_user %}
     <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>

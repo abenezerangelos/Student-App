@@ -57,3 +57,7 @@ class EditForm(FlaskForm):
         for student in students:
             if (student.id != current_user.id):
                 raise ValidationError('The email is already associated with another account! Please use a different email address.')
+
+
+class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
